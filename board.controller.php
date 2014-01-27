@@ -66,6 +66,14 @@
             // update the document if it is existed
             if($oDocument->isExists() && $oDocument->document_srl == $obj->document_srl) {
 				if(!$oDocument->isGranted()) return new Object(-1,'msg_not_permitted');
+
+				if(!$this->grant->manager) {
+					// notice & document style same as before if not manager
+					$obj->is_notice = $oDocument->get('is_notice');
+					$obj->title_color = $oDocument->get('title_color');
+					$obj->title_bold = $oDocument->get('title_bold');
+				}
+
                 $output = $oDocumentController->updateDocument($oDocument, $obj);
                 $msg_code = 'success_updated';
 

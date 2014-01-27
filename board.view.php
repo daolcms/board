@@ -277,7 +277,8 @@
          **/
         function dispBoardNoticeList(){
             $oDocumentModel = &getModel('document');
-            $args->module_srl = $this->module_srl; 
+            $args = new stdClass();
+            $args->module_srl = $this->module_srl;
             $notice_output = $oDocumentModel->getNoticeList($args, $this->columnList);
             Context::set('notice_list', $notice_output->data);
         }
@@ -299,7 +300,8 @@
             $oDocumentModel = &getModel('document');
 
             // setup module_srl/page number/ list number/ page count
-            $args->module_srl = $this->module_srl; 
+            $args = new stdClass();
+            $args->module_srl = $this->module_srl;
             $args->page = Context::get('page');
             $args->list_count = $this->list_count; 
             $args->page_count = $this->page_count; 
@@ -752,7 +754,7 @@
          * display an error message if it has not  a special design  
          **/
         function alertMessage($message) {
-            $script =  sprintf('<script type="text/javascript"> jQuery(function(){ alert("%s"); } );</script>', Context::getLang($message));
+            $script =  sprintf('<script> jQuery(function(){ alert("%s"); } );</script>', Context::getLang($message));
             Context::addHtmlFooter( $script );
         }
 
